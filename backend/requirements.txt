@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+python-multipart
+pillow
+pytesseract
+requests
+supabase
+reportlab
+python-dotenv
+opencv-python-headless

@@ -24,7 +24,7 @@ import {
 import { Shield, ArrowLeft, Calculator, X, User, Loader2 } from 'lucide-react'
 import axios from 'axios'
 
-const BACKEND_URL = "http://localhost:8005";
+const BACKEND_URL = "http://localhost:8000";
 
 const interestRates = [
   { loanAmount: '₹50,000', tenure: '12 months', rate: '10.99%', emi: '₹4,432' },
@@ -219,11 +219,11 @@ export default function InterestRatesPage() {
                 <p className="text-5xl md:text-6xl font-bold text-primary font-[family-name:var(--font-heading)] mb-4">
                   {formatCurrency(emiData.emi)}
                 </p>
-                <p className="text-muted-foreground">
-                  Total payable: <span className="font-medium text-foreground">{formatCurrency(emiData.totalPayable)}</span>
-                  {' | '}
-                  Interest: <span className="font-medium text-foreground">{formatCurrency(emiData.interest)}</span>
-                </p>
+                <div className="text-muted-foreground flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                  <span>Total payable: <span className="font-medium text-foreground">{formatCurrency(emiData.totalPayable)}</span></span>
+                  <span className="hidden sm:inline">{' | '}</span>
+                  <span>Interest: <span className="font-medium text-foreground">{formatCurrency(emiData.interest)}</span></span>
+                </div>
               </div>
 
               <div className="mt-8 text-center">

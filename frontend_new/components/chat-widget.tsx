@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 
-const BACKEND_URL = "http://localhost:8005";
+const BACKEND_URL = "http://localhost:8000";
 
 interface Message {
   role: 'bot' | 'user';

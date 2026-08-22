@@ -9,8 +9,8 @@
 ## ✨ Features
 
 ### 🔐 Secure Authentication
-- Firebase Authentication with email/password
-- User-scoped Firestore security rules
+- Supabase Authentication with email/password
+- User-scoped Supabase Row Level Security (RLS)
 - Session persistence & auto-logout
 - Protected routes with auth guards
 
@@ -18,7 +18,7 @@
 - 5-step multi-step form
 - Auto-age calculation from DOB
 - Real-time form validation
-- Draft auto-save to Firestore
+- Draft auto-save to Supabase
 - Document upload integration
 
 ### 🎯 Loan Application Flow
@@ -58,7 +58,7 @@ SanctionX/
 │   │   ├── admin/applications/page.tsx
 │   │   └── layout.tsx         # With AuthProvider
 │   ├── lib/
-│   │   ├── firebase-config.ts # Firebase init
+│   │   ├── supabase-config.ts # Supabase init
 │   │   ├── auth.ts            # Auth functions
 │   │   └── auth-context.tsx   # Auth provider
 │   ├── components/ui/         # UI components
@@ -68,7 +68,7 @@ SanctionX/
 │   ├── routes/
 │   │   └── loan_routes.py    # Loan endpoints
 │   ├── agents/               # ML agents (existing)
-│   ├── utils/                # Firebase helper
+│   ├── utils/                # Supabase helper
 │   ├── main.py               # FastAPI app
 │   └── requirements.txt
 │
@@ -78,7 +78,7 @@ SanctionX/
 ├── IMPLEMENTATION_SUMMARY.md  # Quick summary
 ├── QUICKSTART.md             # 5-minute setup guide
 ├── API.md                    # API documentation
-├── firestore.rules           # Firestore security rules
+├── setup_database.sql        # Supabase database setup & RLS rules
 └── README.md                 # This file
 ```
 
@@ -89,7 +89,7 @@ SanctionX/
 ### 1. Prerequisites
 - Node.js 18+
 - Python 3.9+
-- Firebase account
+- Supabase account
 - Git
 
 ### 2. Setup (5 minutes)
@@ -104,7 +104,13 @@ cp .env.local.example .env.local
 # Backend
 cd ../backend
 pip install -r requirements.txt
-# Add serviceAccountKey.json
+# Add your serviceAccountKey.json and .env variables
+
+# Database Setup
+# 1. Create a new Supabase project
+# 2. Go to the SQL Editor in your Supabase dashboard
+# 3. Open the `backend/setup_database.sql` file
+# 4. Copy its entire contents and run it in the SQL Editor to create the necessary tables and policies
 ```
 
 ### 3. Start Development
@@ -122,10 +128,20 @@ npm run dev
 Visit **http://localhost:3000**
 
 ### 4. Test Accounts
+
+**User Login:**
 ```
-Email: test@example.com
-Password: Test@1234567
+Email: aditisinghid1@gmail.com
+Password: qwerty
 ```
+
+**Admin Login:**
+```
+Email: aditi.33.singhid@gmail.com
+Password: 123456
+```
+
+*Note: The pending applications for approval are present on the `/admin/applications` page.*
 
 ---
 
@@ -163,13 +179,13 @@ See [API.md](API.md) for complete documentation.
 ## 🔐 Security
 
 ### Authentication
-✅ Firebase Auth with email/password
+✅ Supabase Auth with email/password
 ✅ ID token verification
 ✅ Session persistence
 ✅ Protected routes
 
 ### Database
-✅ User-scoped Firestore rules
+✅ User-scoped Supabase RLS rules
 ✅ Document-level security
 ✅ Admin-only collections
 ✅ Audit logging ready
@@ -187,7 +203,7 @@ See [API.md](API.md) for complete documentation.
 ### Frontend
 - **Framework**: Next.js 16
 - **UI Library**: React 19
-- **Auth**: Firebase 10
+- **Auth**: Supabase
 - **Styling**: Tailwind CSS 4
 - **Components**: Radix UI
 - **Icons**: Lucide React
@@ -195,15 +211,15 @@ See [API.md](API.md) for complete documentation.
 
 ### Backend
 - **Framework**: FastAPI
-- **Database**: Firestore
-- **Auth**: Firebase Admin SDK
+- **Database**: Supabase PostgreSQL
+- **Auth**: Supabase Auth
 - **Storage**: Cloud Storage
 - **ML**: Various agents (OCR, fraud, eligibility)
 
 ### Deployment
 - **Frontend**: Vercel (recommended)
 - **Backend**: Cloud Run / EC2
-- **Database**: Firestore
+- **Database**: Supabase PostgreSQL
 - **Storage**: Cloud Storage
 
 ---
@@ -214,7 +230,7 @@ See [API.md](API.md) for complete documentation.
 2. **[IMPLEMENTATION.md](IMPLEMENTATION.md)** - Complete implementation details
 3. **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - What's implemented
 4. **[API.md](API.md)** - API endpoint documentation
-5. **[firestore.rules](firestore.rules)** - Database security rules
+5. **[setup_database.sql](backend/setup_database.sql)** - Database setup and security rules
 
 ---
 
@@ -250,7 +266,7 @@ npm install
 ```
 
 Key dependencies:
-- `firebase` - Authentication & Firestore
+- `@supabase/supabase-js` - Authentication & Database
 - `next` - React framework
 - `@radix-ui/*` - UI components
 - `tailwindcss` - Styling
@@ -264,7 +280,7 @@ pip install -r requirements.txt
 
 Key dependencies:
 - `fastapi` - Web framework
-- `firebase-admin` - Firebase SDK
+- `supabase` - Supabase SDK
 - `pydantic` - Data validation
 - `pytesseract` - OCR
 
@@ -284,19 +300,19 @@ cd backend
 gcloud run deploy sanctionx-backend --source .
 ```
 
-### Database (Firestore)
+### Database (Supabase)
 ```bash
-firebase deploy --only firestore:rules
+# Run backend/setup_database.sql in Supabase SQL editor
 ```
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Firebase Connection Issues
+### Supabase Connection Issues
 - Check `.env.local` variables
 - Verify serviceAccountKey.json location
-- Check Firebase Console → Firestore
+- Check Supabase Dashboard
 
 ### Backend Not Starting
 - Verify Python 3.9+ installed
@@ -316,7 +332,7 @@ See [QUICKSTART.md](QUICKSTART.md) for more troubleshooting.
 
 - ✅ 5 frontend pages
 - ✅ 15+ backend endpoints
-- ✅ 3 Firestore collections
+- ✅ 3 Supabase tables
 - ✅ 100% TypeScript frontend
 - ✅ Complete API documentation
 - ✅ Security rules implemented
@@ -345,7 +361,7 @@ For issues or questions:
 1. Check [QUICKSTART.md](QUICKSTART.md)
 2. Review [API.md](API.md)
 3. Check console logs (Browser F12)
-4. Check Firebase Console
+4. Check Supabase Dashboard
 
 ---
 

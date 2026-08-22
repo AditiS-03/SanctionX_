@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 
-const BACKEND_URL = "http://localhost:8005";
+const BACKEND_URL = "http://localhost:8000";
 
 export default function AdminApplicationsPage() {
   const [applications, setApplications] = useState<any[]>([]);
